@@ -7,17 +7,17 @@ const Create = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
-  const header = { "Access-COntrol-Allow-Origin": "*" };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("clicked");
-    axios.post("https://64575bfd1a4c152cf9801638.mockapi.io/crud-yt", {
-      name: name,
-      email: email,
-      header,
-    });
-    navigate("/read");
+    axios
+      .post("https://64575bfd1a4c152cf9801638.mockapi.io/crud-yt", {
+        name: name,
+        email: email,
+      })
+      .then(() => {
+        navigate("/read");
+      });
   };
   return (
     <div className="create-form">
@@ -32,6 +32,7 @@ const Create = () => {
                   onChange={(e) => setName(e.target.value)}
                   type="text"
                   className="form-control"
+                  required
                 />
               </div>
               <div className="mb-3 w-100">
@@ -40,6 +41,7 @@ const Create = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   type="email"
                   className="form-control"
+                  required
                 />
               </div>
               <button

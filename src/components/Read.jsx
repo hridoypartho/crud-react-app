@@ -1,18 +1,21 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const Read = () => {
   const [data, setData] = useState([]);
+
+  function getData() {
+    axios
+      .get("https://64575bfd1a4c152cf9801638.mockapi.io/crud-yt")
+      .then((res) => {
+        console.log(res.data);
+        setData(res.data);
+      });
+  }
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch(
-        "https://64575bfd1a4c152cf9801638.mockapi.io/crud-yt"
-      );
-      const getData = await res.json();
-      setData(getData);
-      console.log(data);
-    };
-    fetchData();
+    getData();
   }, []);
+
   return (
     <div className="read-table">
       <div className="container">
