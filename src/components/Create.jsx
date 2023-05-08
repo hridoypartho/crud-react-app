@@ -1,15 +1,18 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Create = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [isValid, setValid] = useState(false);
   const navigate = useNavigate();
+  const validate = () => {
+    return name.length && email.length;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("clicked");
     axios
       .post("https://64575bfd1a4c152cf9801638.mockapi.io/crud-yt", {
         name: name,
@@ -19,12 +22,23 @@ const Create = () => {
         navigate("/read");
       });
   };
+
+  useEffect(() => {
+    const isValid = validate();
+    setValid(isValid);
+  }, [name, email]);
+
   return (
     <div className="pt-80">
       <div className="container">
         <div className="row justify-content-center">
-          <h1 className="mb-3 text-center">Create Operation</h1>
-          <div className="col-xl-8">
+          <div className="mb-5 d-flex justify-content-between align-items-center">
+            <h1 className="text-center">Create Operation</h1>
+            <Link to="/read">
+              <button className="btn btn-primary">Show Data</button>
+            </Link>
+          </div>
+          <div className="col">
             <form>
               <div className="mb-3 w-100">
                 <label className="form-label">Name</label>
@@ -32,7 +46,7 @@ const Create = () => {
                   onChange={(e) => setName(e.target.value)}
                   type="text"
                   className="form-control"
-                  required
+                  value={name}
                 />
               </div>
               <div className="mb-3 w-100">
@@ -41,13 +55,14 @@ const Create = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   type="email"
                   className="form-control"
-                  required
+                  value={email}
                 />
               </div>
               <button
                 onClick={handleSubmit}
                 type="submit"
                 className="btn btn-primary"
+                disabled={!isValid}
               >
                 Submit
               </button>

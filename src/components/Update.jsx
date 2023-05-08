@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Update = () => {
   const [id, setId] = useState(0);
@@ -31,8 +31,13 @@ const Update = () => {
     <div className="pt-80">
       <div className="container">
         <div className="row justify-content-center">
-          <h1 className="mb-3 text-center">Update Operation</h1>
-          <div className="col-xl-8">
+          <div className="mb-5 d-flex justify-content-between align-items-center">
+            <h1 className="text-center">Update Operation</h1>
+            <Link to="/read">
+              <button className="btn btn-danger">Back</button>
+            </Link>
+          </div>
+          <div className="col">
             <form>
               <div className="mb-3 w-100">
                 <label className="form-label">Name</label>
