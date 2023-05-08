@@ -20,7 +20,7 @@ const Create = () => {
       });
   };
   return (
-    <div className="create-form">
+    <div className="pt-80">
       <div className="container">
         <div className="row justify-content-center">
           <h1 className="mb-3 text-center">Create Operation</h1>
